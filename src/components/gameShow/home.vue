@@ -77,7 +77,7 @@
                 color="orange accent-4"
                 class="mt-4"
               >
-                Show More Info
+                Get More Info
               </v-btn>
             </v-row>
           </v-card-text>
