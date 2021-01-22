@@ -1,6 +1,6 @@
 const info = {
-  subject: 'Bitcoin Security',
-  startEpochTime: '1610672400',
+  subject: 'History of Money',
+  startEpochTime: '1612490400',
   nextShow: '1611882000',
   crypto: 'Bitcoin (BTC)',
   amountUSD: '100',

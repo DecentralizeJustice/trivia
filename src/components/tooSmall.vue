@@ -2,14 +2,6 @@
   <v-card
     class="mx-auto"
   >
-    <!-- <v-img
-      class="white--text align-end"
-      height="200px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    >
-      <v-card-title>Trivia </v-card-title>
-    </v-img> -->
-
     <v-card-title class="justify-center text-h5" style="background-color:grey;">
       Sorry 😥
     </v-card-title>
