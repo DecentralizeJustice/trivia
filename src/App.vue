@@ -74,8 +74,8 @@
         align-content='center' justify='center'
         :style="btnStyles"
       >
-      <router-view>
-      </router-view>
+      <router-view class="hidden-sm-and-down"/>
+      <tooSmall class="hidden-md-and-up"/>
       </v-container>
     </v-main>
 
@@ -121,13 +121,13 @@
 </template>
 
 <script>
-// import trivia from '@/components/triviaShow.vue'
+import tooSmall from '@/components/tooSmall.vue'
 // const TIMEOUT = 1
 // current theme https://coolors.co/beb8eb-5299d3-0b5563-a2bce0-5e5c6c
 export default {
   name: 'App',
   components: {
-    // trivia
+    tooSmall
   },
   data: () => ({
     buttonObject: 'hidden-sm-and-down mr-2',

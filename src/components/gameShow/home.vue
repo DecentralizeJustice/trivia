@@ -4,7 +4,7 @@
     >
     <v-card class="" >
       <v-card-title class="headline justify-center">
-      Crypto Trivia Show
+      Crypto Trivia Show 🧐
       </v-card-title>
       <v-divider></v-divider>
       <v-row no-gutters align-content='center' justify='space-around' class="pa-5">
@@ -73,7 +73,7 @@
               justify="center"
             >
               <v-btn
-              @click.stop='showInfo'
+              href="https://guidingwallet.app/triviaInfo"
                 color="orange accent-4"
                 class="mt-4"
               >

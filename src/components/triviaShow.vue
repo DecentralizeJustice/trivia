@@ -36,8 +36,8 @@
     v-on:exit="exitGame"
     style='overflow:hidden;'/> -->
 
-    <rules v-if='dialog && showRules'
-    v-on:exit='exitRules'/>
+    <!-- <rules v-if='dialog && showRules'
+    v-on:exit='exitRules'/> -->
 
     </v-dialog>
   </div>
@@ -47,7 +47,7 @@
 import home from '@/components/gameShow/home.vue'
 // import question from '@/components/gameShow/question.vue'
 import gameInfo from '@/assets/gameShow/gameInfo.js'
-import rules from '@/components/gameShow/rules.vue'
+// import rules from '@/components/gameShow/rules.vue'
 import { secretbox, randomBytes } from 'tweetnacl'
 import {
   encodeBase64
@@ -56,9 +56,9 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'triviaShow',
   components: {
-    home,
+    home
     // question,
-    rules
+    // rules
   },
   data: () => ({
     dev: false,
