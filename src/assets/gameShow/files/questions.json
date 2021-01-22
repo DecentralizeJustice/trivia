@@ -1,0 +1,74 @@
+{ "hv": {
+    "question": "What about Bitcoin Security Would you like to learn?"
+  },
+  "1": {
+      "questionInfo": {
+          "question": "A Commong Phrase in Crypto is: Not your ____, not your coin.",
+          "options": ["Government", "Exchange", "Passwords", "Keys"]
+      },
+      "answer": "3"
+  },
+  "2": {
+      "questionInfo": {
+          "question": "Coinbase Insures __% of their crypto?",
+          "options": ["2", "0", "75", "100"]
+      },
+      "answer": "0"
+  },
+  "3": {
+      "questionInfo": {
+          "question": "_____ is non-custodial P2P decentralized Bitcoin and cryptocurrency exchange",
+          "options": ["Exodus", "Bisq", "Binance", "Electrum"]
+      },
+      "answer": "1"
+  },
+  "4": {
+      "questionInfo": {
+          "question": "____ is a type of social engineering attack were someone disguises themselves a trustworthy entity",
+          "options": ["Phishing", "Exploit", "Ransom Attack", "Switcheroo"]
+      },
+      "answer": "0"
+  },
+  "5": {
+      "questionInfo": {
+          "question": "Which hardware wallet brand lacks a secure element? ",
+          "options": ["Bitbox", "Coldcard", "Ledger", "Trezor"]
+      },
+      "answer": "3"
+  },
+  "6": {
+      "questionInfo": {
+          "question": "Which hardware wallet does not use code from trezor in their firmware github?",
+          "options": ["Open Dime", "Coldcard", "Keep Key", "Blockstream Jade"]
+      },
+      "answer": "3"
+  },
+  "7": {
+      "questionInfo": {
+          "question": "A 15 year old crypto researcher that found exploits in Ledger products:",
+          "options": ["Alena Vranova", "Eric Larchevêque", "Saleem Rashid", "Andrew Chow"]
+      },
+      "answer": "2"
+  },
+  "8": {
+      "questionInfo": {
+          "question": "The max number of signing keys in a “standard” p2sh multisig transaction as stated in bitcoin core is:",
+          "options": ["5", "10", "15", "20"]
+      },
+      "answer": "2"
+  },
+  "9": {
+      "questionInfo": {
+          "question": "_____ secret sharing is way to split up your mnemonic",
+          "options": ["Hardened", "Rivest", "Split", "Shamir"]
+      },
+      "answer": "3"
+  },
+  "10": {
+      "questionInfo": {
+          "question": "Hal Finney’s Bcflick used ____ to improve wallet security.",
+          "options": ["Trusted Computing", "Split Computing", "Trustless Computing", "Timed Computing"]
+      },
+      "answer": "0"
+  }
+}

@@ -69,10 +69,14 @@
       </a>
       </v-list>
     </v-navigation-drawer>
-    <!-- <v-main>
-      <router-view>
-      </router-view>
-  </v-main> -->
+    <v-main>
+      <v-container fluid fill-height
+        align-content='center' justify='center'
+        :style="btnStyles"
+      >
+        <trivia/>
+      </v-container>
+    </v-main>
 
       <v-footer
     dark
@@ -116,11 +120,13 @@
 </template>
 
 <script>
+import trivia from '@/components/triviaShow.vue'
 // const TIMEOUT = 1
 // current theme https://coolors.co/beb8eb-5299d3-0b5563-a2bce0-5e5c6c
 export default {
   name: 'App',
   components: {
+    trivia
   },
   data: () => ({
     buttonObject: 'hidden-sm-and-down mr-2',
@@ -151,6 +157,20 @@ export default {
       'mdi-twitter'
     ]
   }),
+  computed: {
+    showDialog: function () {
+      return !this.torReady || this.updateAvailable
+    },
+    btnStyles: function () {
+      return {
+        'background-image': 'url(https://res.cloudinary.com/dylevfpbl/image/upload/v1611305592/background.jpg)',
+        height: '100%',
+        'background-position': 'center',
+        'background-repeat': 'no-repeat',
+        'background-size': 'cover'
+      }
+    }
+  },
   mounted () {
     // From testing, without a brief timeout, it won't work.
     // if (this.$route.hash) {
