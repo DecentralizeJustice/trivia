@@ -74,7 +74,8 @@
         align-content='center' justify='center'
         :style="btnStyles"
       >
-        <trivia/>
+      <router-view>
+      </router-view>
       </v-container>
     </v-main>
 
@@ -120,13 +121,13 @@
 </template>
 
 <script>
-import trivia from '@/components/triviaShow.vue'
+// import trivia from '@/components/triviaShow.vue'
 // const TIMEOUT = 1
 // current theme https://coolors.co/beb8eb-5299d3-0b5563-a2bce0-5e5c6c
 export default {
   name: 'App',
   components: {
-    trivia
+    // trivia
   },
   data: () => ({
     buttonObject: 'hidden-sm-and-down mr-2',

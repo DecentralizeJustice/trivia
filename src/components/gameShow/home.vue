@@ -184,7 +184,7 @@
                       type="warning"
                       class="text-center"
                     >
-                      <div class="text-center text-h6">You need to enter your address</div>
+                      <div class="text-center text-h6">You need to set your address!</div>
                       <!-- <v-btn
                       @click='goToRoute'
                         color="primary"
