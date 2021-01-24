@@ -156,6 +156,7 @@ export default {
       const target = {}
       Object.assign(target, gameInformation.default)
       target.startEpochTime = Math.round(Date.now() / 1000)
+      target.postApi = ''
       this.genGameInfo = target
     },
     unsetOldGame: function functionName () {
