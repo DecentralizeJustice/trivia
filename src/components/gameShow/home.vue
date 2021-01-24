@@ -281,7 +281,7 @@
       <v-divider/>
       <v-card-actions>
       <v-btn
-      @click.stop='showInfo'
+      href="https://guidingwallet.app/triviaInfo"
         color="orange"
         text
       >

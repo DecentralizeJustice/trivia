@@ -44,6 +44,7 @@ import home from '@/components/gameShow/home.vue'
 import question from '@/components/gameShow/question.vue'
 import gameInformation from '@/assets/gameShow/gameInfo.js'
 import mediaInfoJson from '@/assets/gameShow/mediaInfo.json'
+import encryptedQuestions from '@/assets/gameShow/encryptedQuestions.json'
 import { secretbox, randomBytes } from 'tweetnacl'
 import {
   encodeBase64
@@ -89,8 +90,8 @@ export default {
       ['updateInfo', 'updatePrivateId']
     ),
     setQuestions: async function () {
-      // const info = await import('../assets/gameShow/output/encryptedQuestions.json')
-      // this.questions = info.questions
+      const info = encryptedQuestions
+      this.questions = info.questions
     },
     creatBlobLink: async function (file) {
       const response = await axios({
@@ -102,25 +103,23 @@ export default {
       return url
     },
     setMediaInfo: async function () {
-      // const test = await this.creatBlobLink('introAudio.json')
-      // console.log(test)
-      // await this.encryptedSetHv(mediaInfo)
+      await this.encryptedSetHv(mediaInfoJson)
       await this.encryptedSetIntro(mediaInfoJson, 'intro')
+      await this.encryptedSetIntro(mediaInfoJson, 'outro')
+      await this.encryptedQuestions(mediaInfoJson, parseInt(this.genGameInfo.numberOfQuestions))
       console.log(this.mediaInfo)
-      // await this.encryptedSetIntro(mediaInfo, 'outro')
-      // await this.encryptedQuestions(mediaInfo, parseInt(this.genGameInfo.numberOfQuestions))
     },
     encryptedSetHv: async function (mediaInfo) {
-      // this.mediaInfo.hv = {}
-      // const audio = await import('../assets/gameShow/output/hvMediaAudio.json')
-      // this.mediaInfo.hv.audio = audio.default
-      // const imgArray = []
-      // for (var i = 0; i < mediaInfo.hv.img.length; i++) {
-      //   const img = await import(`../assets/gameShow/output/hvMediaImg${i}.json`)
-      //   imgArray.push(img.default)
-      // }
-      // this.mediaInfo.hv.imgs = imgArray
-      // this.mediaInfo.hv.slideTiming = mediaInfo.hv.slideTiming
+      this.mediaInfo.hv = {}
+      const audio = await this.creatBlobLink('hvMediaAudio.json')
+      this.mediaInfo.hv.audio = audio
+      const imgArray = []
+      for (var i = 0; i < mediaInfo.hv.img.length; i++) {
+        const img = await this.creatBlobLink(`hvMediaImg${i}.json`)
+        imgArray.push(img)
+      }
+      this.mediaInfo.hv.imgs = imgArray
+      this.mediaInfo.hv.slideTiming = mediaInfo.hv.slideTiming
     },
     encryptedSetIntro: async function (mediaInfo, type) {
       this.mediaInfo[type] = {}
@@ -134,18 +133,18 @@ export default {
       this.mediaInfo[type].slideTiming = mediaInfo[type].slideTiming
     },
     encryptedQuestions: async function (info, numberOfQuestions) {
-      // for (var i = 1; i < numberOfQuestions + 1; i++) {
-      //   const audio = await import(`../assets/gameShow/output/questionMediaAudio${i}.json`)
-      //   const imgArray = []
-      //   for (var y = 0; y < info[i].img.length; y++) {
-      //     const img = await import(`../assets/gameShow/output/questionMediaImg${i}-${y}.json`)
-      //     imgArray.push(img.default)
-      //   }
-      //   this.mediaInfo[i] = {}
-      //   this.mediaInfo[i].audio = audio.default
-      //   this.mediaInfo[i].imgs = imgArray
-      //   this.mediaInfo[i].slideTiming = info[i].slideTiming
-      // }
+      for (var i = 1; i < numberOfQuestions + 1; i++) {
+        const audio = await this.creatBlobLink(`questionMediaAudio${i}.json`)
+        const imgArray = []
+        for (var y = 0; y < info[i].img.length; y++) {
+          const img = await this.creatBlobLink(`questionMediaImg${i}-${y}.json`)
+          imgArray.push(img)
+        }
+        this.mediaInfo[i] = {}
+        this.mediaInfo[i].audio = audio
+        this.mediaInfo[i].imgs = imgArray
+        this.mediaInfo[i].slideTiming = info[i].slideTiming
+      }
     },
     exitGame: function () {
       this.dialog = false
@@ -180,7 +179,7 @@ export default {
   },
   async beforeMount () {
     this.handlePrivateId()
-    // await this.setQuestions()
+    await this.setQuestions()
     this.setMediaInfo()
   }
 }

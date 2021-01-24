@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    async setup (audio) {
+    async setupAudio (audio) {
       const binary = this.convert(audio)
       const blob = new window.Blob([binary], { type: 'audio/mp3' })
       const urlb = URL.createObjectURL(blob)
@@ -130,7 +130,7 @@ export default {
     this.player = this.$refs.player
     this.player.muted = this.audioMuted
     const audio = await this.decryptFile(this.audioFiles.audio, this.password)
-    this.setup(audio)
+    this.setupAudio(audio)
     function sleep (ms) {
       return new Promise(resolve => setTimeout(resolve, ms))
     }
