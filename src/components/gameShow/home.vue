@@ -28,6 +28,16 @@
                </v-col>
              </v-row>
             </div>
+            <div class="" style="font-size: large;">
+              Donation Amount: {{donateUSD}} USD
+              <v-row no-gutters justify-content='center' >
+               <v-col cols='2' offset='5' class="justify-center text-center">
+                 <v-icon x-large color="blue lighten-1">
+                   mdi-gift-outline
+                 </v-icon>
+               </v-col>
+             </v-row>
+            </div>
             <!-- <div class="" style="font-size: large;">
               Max Win Amount: {{maxWinUSD}} USD
               <v-row no-gutters justify-content='center' >
@@ -77,7 +87,7 @@
                 color="orange accent-4"
                 class="mt-4"
               >
-                Show More Info
+                Get More Info
               </v-btn>
             </v-row>
           </v-card-text>
@@ -200,7 +210,7 @@
         </v-card>
         </v-col>
       </v-row>
-      <v-row no-gutters align-content='center' class="text-center" v-if='!ready' align="center"
+      <v-row no-gutters align-content='center' class="text-center" v-if='!ready || old' align="center"
         justify="space-around" >
         <v-col
           cols="5"
@@ -275,13 +285,13 @@
           color="primary"
           class="mb-5"
         >
-          Start!!!
+          {{startButtonText}}
         </v-btn>
       </v-row>
       <v-divider/>
       <v-card-actions>
       <v-btn
-      @click.stop='showInfo'
+      href="https://guidingwallet.app/triviaInfo"
         color="orange"
         text
       >
@@ -296,10 +306,9 @@
 import { get } from '@/assets/util/axios.js'
 import adjectiveList from '@/assets/gameShow/adjective.json'
 import emojiObject from '@/assets/gameShow/emoji.json'
-import extraInfo from '@/assets/gameShow/gameInfo.js'
 export default {
   name: 'home',
-  props: ['userIdInfo', 'dev', 'genInfo', 'type'],
+  props: ['userIdInfo', 'dev', 'genInfo', 'type', 'old'],
   components: {
   },
   data: () => ({
@@ -309,6 +318,13 @@ export default {
     oneHour: (3600 * 1000)
   }),
   computed: {
+    startButtonText: function () {
+      if (this.old) {
+        return 'Play Last Trivia Show'
+      } else {
+        return 'Start Show'
+      }
+    },
     addressText: function () {
       if (this.genInfo.crypto === 'Bitcoin (BTC)') {
         return 'Bitcoin'
@@ -323,6 +339,9 @@ export default {
     },
     amountUSD: function () {
       return this.genInfo.amountUSD
+    },
+    donateUSD: function () {
+      return this.genInfo.donatationAmountUSD
     },
     maxWinUSD: function () {
       return this.genInfo.maxAmountWin
@@ -426,7 +445,7 @@ export default {
       const current = Date.now()
       if (current > this.startTime + this.oneHour) {
         setTimeout(() => {
-          const next = extraInfo.default.nextShow * 1000
+          const next = this.genInfo.default.nextShow * 1000
           this.difference = next - current
           this.countDownTimer()
         }, 1000)

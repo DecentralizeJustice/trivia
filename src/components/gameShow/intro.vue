@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-card-title class="headline justify-center">
-    Welcome
+     🎉 Welcome 🎉
     </v-card-title>
     <v-divider/>
-    <audio1
+    <vid
     class='pa-5'
     v-bind:audioMuted='audioMuted'
     v-bind:audioFiles='audioFiles'
@@ -27,13 +27,13 @@
 </template>
 
 <script>
-import audio1 from '@/components/gameShow/localAudioEncrypt.vue'
+import vid from '@/components/gameShow/encryptedVideoPlayer.vue'
 import { get } from '@/assets/util/axios.js'
 export default {
   name: 'intro',
   props: ['genInfo', 'currentTime', 'audioMuted', 'mediaInfo', 'encrypted'],
   components: {
-    audio1
+    vid
   },
   data: () => ({
     passwordInfo: {}

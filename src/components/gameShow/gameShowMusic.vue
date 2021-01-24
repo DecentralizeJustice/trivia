@@ -5,8 +5,6 @@
 </template>
 
 <script>
-const fs = require('fs-extra')
-const path = require('path')
 export default {
   components: {
   },
@@ -19,13 +17,7 @@ export default {
   },
   methods: {
     async setup () {
-      const url = 'audio/shortQuestionMusic.mp3'
-      // eslint-disable-next-line
-      const fileLocation = path.join(__static, url)
-      const fileContents = fs.readFileSync(fileLocation)
-      const blob = new window.Blob([fileContents], { type: 'audio/mp3' })
-      const urlb = URL.createObjectURL(blob)
-      this.processedUrl = urlb
+      this.processedUrl = 'https://res.cloudinary.com/dylevfpbl/video/upload/v1611459011/gameshow/shortQuestionMusic.mp3'
     },
     audioError (e) {
       console.log(e.srcElement.error)

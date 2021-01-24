@@ -58,16 +58,17 @@
 
 <script>
 import audio1 from '@/components/gameShow/preGameMusic.vue'
-import slide1 from '@/assets/gameShow/pregame/slide1.jpg'
-import slide2 from '@/assets/gameShow/pregame/slide2.jpg'
 export default {
-  name: 'intro',
-  props: ['genInfo', 'currentTime', 'audioMuted', 'mediaInfo', 'encrypted'],
+  name: 'pregame',
+  props: ['genInfo', 'currentTime', 'audioMuted'],
   components: {
     audio1
   },
   data: () => ({
-    slides: [slide1, slide2]
+    slides:
+    ['https://res.cloudinary.com/dylevfpbl/image/upload/v1611440241/gameshow/pregame/slide1.jpg',
+      'https://res.cloudinary.com/dylevfpbl/image/upload/v1611440242/gameshow/pregame/slide2.jpg'
+    ]
   }),
   computed: {
     currentSlide: function () {
@@ -76,13 +77,6 @@ export default {
       }
       return this.slides[0]
     },
-    // specificMediaInfo: function () {
-    //   return this.mediaInfo.intro
-    // },
-    // audioFiles: function () {
-    //   const intro = this.mediaInfo.intro
-    //   return { audio: intro.audio, imgFiles: intro.img }
-    // },
     tillShowTimeMinutes: function () {
       const distance = this.startTime - this.currentTime
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
