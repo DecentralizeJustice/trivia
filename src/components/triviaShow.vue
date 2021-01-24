@@ -148,11 +148,18 @@ export default {
       }
     },
     exitGame: function () {
+      this.unsetOldGame()
       this.dialog = false
       this.showGame = false
     },
     setOldGame: function functionName () {
-      console.log(gameInformation.default)
+      const target = {}
+      Object.assign(target, gameInformation.default)
+      target.startEpochTime = Math.round(Date.now() / 1000)
+      this.genGameInfo = target
+    },
+    unsetOldGame: function functionName () {
+      this.genGameInfo = gameInformation.default
     },
     readyToStart: function () {
       if (this.old) {
@@ -160,10 +167,6 @@ export default {
       }
       this.showGame = true
       this.dialog = true
-    },
-    exitRules: function () {
-      this.dialog = false
-      this.showRules = false
     },
     updateAddress: function (address) {
       this.gameInfo[this.type] = address
