@@ -3,6 +3,7 @@
     <v-row no-gutters align-content='center' justify='center'>
     <home
     v-if='!dialog'
+    v-bind:old='old'
     v-bind:userIdInfo='gameInfo'
     v-bind:dev='dev'
     @readyToStart='readyToStart()'
@@ -25,6 +26,7 @@
 
     <question
     v-bind:type='type'
+    v-bind:old='old'
     v-bind:userIdInfo='gameInfo'
     v-if='dialog && showGame'
     v-bind:questions='questions'
@@ -61,6 +63,8 @@ export default {
   },
   data: () => ({
     dev: true,
+    old: true,
+    oldStarTime: 2,
     showGame: false,
     questions: {},
     mediaInfo: {},
@@ -107,7 +111,6 @@ export default {
       await this.encryptedSetIntro(mediaInfoJson, 'intro')
       await this.encryptedSetIntro(mediaInfoJson, 'outro')
       await this.encryptedQuestions(mediaInfoJson, parseInt(this.genGameInfo.numberOfQuestions))
-      console.log(this.mediaInfo)
     },
     encryptedSetHv: async function (mediaInfo) {
       this.mediaInfo.hv = {}

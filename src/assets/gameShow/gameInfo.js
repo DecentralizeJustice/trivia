@@ -1,7 +1,8 @@
 const info = {
   subject: 'History of Money',
-  startEpochTime: '1611446391',
-  nextShow: '1611882000',
+  startEpochTime: '1612490400',
+  nextShow: '1612490400',
+  donatationAmountUSD: '100',
   crypto: 'Bitcoin (BTC)',
   amountUSD: '100',
   maxAmountWin: '30',

@@ -11,6 +11,7 @@
     v-bind:eliminated='eliminated'
     v-bind:privateId='privateId'
     v-bind:type='type'
+    v-bind:old='old'
     v-on:eliminated='eliminated = true'/>
     <v-divider/>
     <v-card-actions>
@@ -50,18 +51,18 @@
 <script>
 import intro from '@/components/gameShow/intro.vue'
 import preGame from '@/components/gameShow/preGame.vue'
-// import quiz from '@/components/gameShow/quiz.vue'
-// import outro from '@/components/gameShow/outro.vue'
-// import humanVerif from '@/components/gameShow/humanVerification.vue'
+import quiz from '@/components/gameShow/quiz.vue'
+import outro from '@/components/gameShow/outro.vue'
+import humanVerif from '@/components/gameShow/humanVerification.vue'
 export default {
   name: 'question',
-  props: ['genInfo', 'mediaInfo', 'encrypted', 'questions', 'userIdInfo', 'privateId', 'type'],
+  props: ['genInfo', 'mediaInfo', 'encrypted', 'questions', 'userIdInfo', 'privateId', 'type', 'old'],
   components: {
     intro,
-    preGame
-    // quiz,
-    // outro,
-    // humanVerif
+    preGame,
+    quiz,
+    outro,
+    humanVerif
   },
   data: () => ({
     currentTime: 1,
@@ -89,14 +90,13 @@ export default {
       if (this.currentTime < (this.startTime + this.introLength)) {
         return intro
       }
-      return intro
-      // if (this.currentTime < (this.startTime + this.introLength + this.humanVerificationTime)) {
-      //   return humanVerif
-      // }
-      // if (this.currentTime < (this.startTime + this.humanVerificationTime + this.introLength + this.allQuestionsLength)) {
-      //   return quiz
-      // }
-      // return outro
+      if (this.currentTime < (this.startTime + this.introLength + this.humanVerificationTime)) {
+        return humanVerif
+      }
+      if (this.currentTime < (this.startTime + this.humanVerificationTime + this.introLength + this.allQuestionsLength)) {
+        return quiz
+      }
+      return outro
     },
     startTime: function () {
       return parseInt(this.genInfo.startEpochTime) * 1000

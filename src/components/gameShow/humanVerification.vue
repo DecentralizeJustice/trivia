@@ -8,14 +8,14 @@
       <v-row align-content='center' justify='center'>
         <v-col class="" cols="6" >
       <div>
-      <v-alert type="error" v-if='toolate'>
+      <v-alert type="error" v-if='toolate' class="mt-3">
         Answered Too Late
       </v-alert>
       </div>
     </v-col>
       </v-row>
 
-      <audiopPlayer
+      <vid
       class="ma-4"
       v-if='explanation && (!encrypted || password)'
       v-bind:audioMuted='audioMuted'
@@ -76,15 +76,15 @@ import {
   encodeUTF8,
   decodeBase64
 } from 'tweetnacl-util'
-import audiopPlayer from '@/components/gameShow/localAudioEncrypt.vue'
+import vid from '@/components/gameShow/encryptedVideoPlayer.vue'
 export default {
   name: 'hv',
   props: [
-    'genInfo', 'currentTime', 'audioMuted', 'mediaInfo',
+    'genInfo', 'currentTime', 'audioMuted', 'mediaInfo', 'old',
     'encrypted', 'questions', 'userIdInfo', 'privateId', 'type'
   ],
   components: {
-    audiopPlayer
+    vid
   },
   data: () => ({
     toolate: false,
@@ -131,6 +131,9 @@ export default {
   },
   methods: {
     checkIfCorrect: function () {
+      if (this.old) {
+        return
+      }
       const startTime = this.questionStartTime
       const timetoAnswer = this.timetoAnswer
       const submitByTime = startTime + timetoAnswer
