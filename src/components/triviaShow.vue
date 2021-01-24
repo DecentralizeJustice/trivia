@@ -69,15 +69,13 @@ export default {
     questions: {},
     mediaInfo: {},
     dialog: false,
-    showRules: false
+    showRules: false,
+    genGameInfo: gameInformation.default
   }),
   computed: {
     ...mapState('gameInfo', [
       'gameInfo', 'privateId'
     ]),
-    genGameInfo: function () {
-      return gameInformation.default
-    },
     type: function () {
       if (this.genGameInfo.crypto === 'Bitcoin (BTC)') {
         return 'btcAddress'
@@ -153,12 +151,14 @@ export default {
       this.dialog = false
       this.showGame = false
     },
-    readyToStart: function () {
-      this.showGame = true
-      this.dialog = true
+    setOldGame: function functionName () {
+      console.log(gameInformation.default)
     },
-    showRulesFunc: function () {
-      this.showRules = true
+    readyToStart: function () {
+      if (this.old) {
+        this.setOldGame()
+      }
+      this.showGame = true
       this.dialog = true
     },
     exitRules: function () {
