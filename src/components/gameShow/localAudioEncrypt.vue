@@ -7,7 +7,7 @@
       ></v-img>
     </v-col>
     <audio ref="player" hidden autoplay @timeupdate="updateTime"
-      :src="audioUrl" type="audio/mpeg" @error='audioError'>
+      :src="audioUrl" type="audio/mp3" @error='audioError'>
     </audio>
   </v-row>
 </template>
@@ -18,6 +18,9 @@ import {
   encodeUTF8,
   decodeBase64
 } from 'tweetnacl-util'
+import axios from 'axios'
+axios.defaults.withCredentials = false
+axios.defaults.timeout = 60000
 export default {
   name: 'encryptedvideoPlayer',
   components: {
@@ -34,12 +37,12 @@ export default {
   methods: {
     async setup (audio) {
       const binary = this.convert(audio)
-      const blob = new window.Blob([binary], { type: 'audio/mpeg' })
+      const blob = new window.Blob([binary], { type: 'audio/mp3' })
       const urlb = URL.createObjectURL(blob)
       this.audioUrl = urlb
     },
     async handleImg (img, password) {
-      const imgString = this.decryptFile(img, password)
+      const imgString = await this.decryptFile(img, password)
       const binary = this.convert(imgString)
       const blob = new window.Blob([binary], { type: 'image/jpg' })
       const urlb = URL.createObjectURL(blob)
@@ -55,10 +58,11 @@ export default {
       return array
     },
     audioError (e) {
-      console.log(e.srcElement.error)
+      // console.log(e.srcElement.error)
     },
-    decryptFile: function (file, key) {
-      const decrypted = this.decrypt(file, key)
+    decryptFile: async function (file, key) {
+      const test = await axios.get(file)
+      const decrypted = this.decrypt(test.data, key)
       return decrypted.file
     },
     decrypt: function (messageWithNonce, key) {
@@ -125,12 +129,7 @@ export default {
   async mounted () {
     this.player = this.$refs.player
     this.player.muted = this.audioMuted
-    if (!this.encrypted) {
-      this.audioUrl = this.audioFiles.audio
-      this.imgFile = this.audioFiles.imgFiles
-      return
-    }
-    const audio = this.decryptFile(this.audioFiles.audio, this.password)
+    const audio = await this.decryptFile(this.audioFiles.audio, this.password)
     this.setup(audio)
     function sleep (ms) {
       return new Promise(resolve => setTimeout(resolve, ms))

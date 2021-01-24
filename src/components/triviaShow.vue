@@ -23,7 +23,7 @@
       style="dialog"
     >
 
-    <!-- <question
+    <question
     v-bind:type='type'
     v-bind:userIdInfo='gameInfo'
     v-if='dialog && showGame'
@@ -34,34 +34,32 @@
     v-bind:privateId='privateId'
     v-bind:genInfo='genGameInfo'
     v-on:exit="exitGame"
-    style='overflow:hidden;'/> -->
-
-    <!-- <rules v-if='dialog && showRules'
-    v-on:exit='exitRules'/> -->
-
+    style='overflow:hidden;'/>
     </v-dialog>
   </div>
 </template>
 
 <script>
 import home from '@/components/gameShow/home.vue'
-// import question from '@/components/gameShow/question.vue'
-import gameInfo from '@/assets/gameShow/gameInfo.js'
-// import rules from '@/components/gameShow/rules.vue'
+import question from '@/components/gameShow/question.vue'
+import gameInformation from '@/assets/gameShow/gameInfo.js'
+import mediaInfoJson from '@/assets/gameShow/mediaInfo.json'
 import { secretbox, randomBytes } from 'tweetnacl'
 import {
   encodeBase64
 } from 'tweetnacl-util'
 import { mapActions, mapState } from 'vuex'
+import axios from 'axios'
+axios.defaults.withCredentials = false
+axios.defaults.timeout = 60000
 export default {
   name: 'triviaShow',
   components: {
-    home
-    // question,
-    // rules
+    home,
+    question
   },
   data: () => ({
-    dev: false,
+    dev: true,
     showGame: false,
     questions: {},
     mediaInfo: {},
@@ -73,7 +71,7 @@ export default {
       'gameInfo', 'privateId'
     ]),
     genGameInfo: function () {
-      return gameInfo.default
+      return gameInformation.default
     },
     type: function () {
       if (this.genGameInfo.crypto === 'Bitcoin (BTC)') {
@@ -81,6 +79,9 @@ export default {
       }
       // should not be hit
       return 'btcAddress'
+    },
+    fileLink: function () {
+      return this.genGameInfo.fileLink
     }
   },
   methods: {
@@ -88,14 +89,24 @@ export default {
       ['updateInfo', 'updatePrivateId']
     ),
     setQuestions: async function () {
-      const info = await import('../assets/gameShow/output/encryptedQuestions.json')
-      this.questions = info.questions
+      // const info = await import('../assets/gameShow/output/encryptedQuestions.json')
+      // this.questions = info.questions
+    },
+    creatBlobLink: async function (file) {
+      const response = await axios({
+        url: this.fileLink + file,
+        method: 'GET',
+        responseType: 'blob'
+      })
+      const url = await window.URL.createObjectURL(new Blob([response.data], {type: "application/json"})) // eslint-disable-line
+      return url
     },
     setMediaInfo: async function () {
-      // const mediaInfoJson = await import('../assets/gameShow/output/mediaInfo.json')
-      // const mediaInfo = mediaInfoJson.default
+      // const test = await this.creatBlobLink('introAudio.json')
+      // console.log(test)
       // await this.encryptedSetHv(mediaInfo)
-      // await this.encryptedSetIntro(mediaInfo, 'intro')
+      await this.encryptedSetIntro(mediaInfoJson, 'intro')
+      console.log(this.mediaInfo)
       // await this.encryptedSetIntro(mediaInfo, 'outro')
       // await this.encryptedQuestions(mediaInfo, parseInt(this.genGameInfo.numberOfQuestions))
     },
@@ -112,16 +123,15 @@ export default {
       // this.mediaInfo.hv.slideTiming = mediaInfo.hv.slideTiming
     },
     encryptedSetIntro: async function (mediaInfo, type) {
-      // this.mediaInfo[type] = {}
-      // const audio = await import(`../assets/gameShow/output/${type}Audio.json`)
-      // this.mediaInfo[type].audio = audio.default
-      // const imgArray = []
-      // for (var i = 0; i < mediaInfo[type].img.length; i++) {
-      //   const img = await import(`../assets/gameShow/output/${type}Img${i}.json`)
-      //   imgArray.push(img.default)
-      // }
-      // this.mediaInfo[type].img = imgArray
-      // this.mediaInfo[type].slideTiming = mediaInfo[type].slideTiming
+      this.mediaInfo[type] = {}
+      this.mediaInfo[type].audio = await this.creatBlobLink(`${type}Audio.json`)
+      const imgArray = []
+      for (var i = 0; i < mediaInfo[type].img.length; i++) {
+        const img = await this.creatBlobLink(`${type}Img${i}.json`)
+        imgArray.push(img)
+      }
+      this.mediaInfo[type].img = imgArray
+      this.mediaInfo[type].slideTiming = mediaInfo[type].slideTiming
     },
     encryptedQuestions: async function (info, numberOfQuestions) {
       // for (var i = 1; i < numberOfQuestions + 1; i++) {
@@ -169,10 +179,9 @@ export default {
     }
   },
   async beforeMount () {
-    console.log(this.privateId)
     this.handlePrivateId()
     // await this.setQuestions()
-    // await this.setMediaInfo()
+    this.setMediaInfo()
   }
 }
 </script>

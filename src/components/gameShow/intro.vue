@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-title class="headline justify-center">
-    Welcome
+     🎉 Welcome 🎉
     </v-card-title>
     <v-divider/>
     <audio1
