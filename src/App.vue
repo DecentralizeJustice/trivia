@@ -87,8 +87,45 @@
       flat
       tile
       class="white--text text-center"
-      style="background-color: #0B5563;width:100%;"
+      style="background-color: #546E7A;width:100%;"
     >
+    <v-card-text>
+
+    <v-row
+        no-gutters
+      >
+        <v-col
+          cols='6'
+          offset-md="2"
+        >
+          <v-card
+            class="pa-2 text-left" flat
+            :class="{'text-h5': $vuetify.breakpoint.mdAndUp, 'text-h6': $vuetify.breakpoint.smAndDown}"
+            style="background-color: #546E7A;width:100%;"
+          >
+            <div style="text-decoration: underline;">Trivia Show Links</div>
+            <v-row
+                no-gutters
+                class="text-left text-subtitle-1"
+              >
+                <v-col
+                  cols='12'
+                  v-for="link in footerLinks.triviaShow" :key="`${link.text}`"
+                >
+                <a :href="link.link" v-if='link.external'
+                  style="text-decoration: none; color: inherit;">
+                  {{link.text}}
+                </a>
+                <router-link :to="link.link" v-if='!link.external'
+                  style="text-decoration: none; color: inherit;">
+                  {{link.text}}
+                </router-link>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+      </v-card-text>
       <v-card-text>
         <v-btn
           class="mx-4 white--text"
@@ -141,6 +178,13 @@ export default {
       blog: 3,
       pastTrivia: 4,
       faq: 5
+    },
+    footerLinks: {
+      triviaShow: [
+        { text: 'Live Trivia Show', link: '/' },
+        { text: 'Trivia Info', link: 'https://guidingwallet.app/triviaInfo', external: true },
+        { text: 'Past Shows', link: 'https://guidingwallet.app/pastTrivia', external: true }
+      ]
     },
     opts: [
       { title: 'Home', icon: 'home', link: 'https://guidingwallet.app/' },
