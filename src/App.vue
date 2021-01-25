@@ -191,7 +191,6 @@ export default {
       { title: 'Game Show', icon: 'gamepad-variant', link: '/' },
       { title: 'Lessons', icon: 'book', link: 'https://guidingwallet.app/lessons' },
       { title: 'Blog', icon: 'book-open-outline', link: 'https://guidingwallet.app/blog' },
-      { title: 'Past Games', icon: 'calendar-clock', link: 'https://guidingwallet.app/pastTrivia' },
       { title: 'FAQ', icon: 'help-circle', link: 'https://guidingwallet.app/faq' }
 
       // { title: 'About', icon: 'download', link: '#Download' },
