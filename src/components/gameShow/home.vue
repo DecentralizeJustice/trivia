@@ -485,7 +485,7 @@ export default {
     if (this.userIdInfo.adjective === '' || this.userIdInfo.adjective.emoji === '') {
       this.generateNewname()
     }
-    this.testSpeed()
+    // this.testSpeed()
     this.countDownTimer()
   }
 }
