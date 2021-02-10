@@ -31,7 +31,8 @@ import vid from '@/components/gameShow/encryptedVideoPlayer.vue'
 import { get } from '@/assets/util/axios.js'
 export default {
   name: 'intro',
-  props: ['genInfo', 'currentTime', 'audioMuted', 'mediaInfo', 'encrypted', 'old', 'pastGameInfo'],
+  props: ['genInfo', 'currentTime', 'audioMuted', 'mediaInfo', 'encrypted',
+    'old', 'pastGameInfo'],
   components: {
     vid
   },
