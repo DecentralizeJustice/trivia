@@ -80,8 +80,9 @@ import vid from '@/components/gameShow/encryptedVideoPlayer.vue'
 export default {
   name: 'quiz',
   props: [
-    'genInfo', 'currentTime', 'audioMuted', 'mediaInfo', 'old',
-    'encrypted', 'questions', 'userIdInfo', 'eliminated', 'type'
+    'genInfo', 'currentTime', 'audioMuted', 'mediaInfo',
+    'encrypted', 'questions', 'userIdInfo', 'eliminated', 'type',
+    'old', 'pastGameInfo'
   ],
   components: {
     gameMusic,
@@ -204,6 +205,10 @@ export default {
       return JSON.parse(base64DecryptedMessage)
     },
     getPassword: async function () {
+      if (this.old) {
+        this.passwordInfo = this.pastGameInfo
+        return
+      }
       const url = this.genInfo.getApi
       const result = await get(url)
       function sleep (ms) {

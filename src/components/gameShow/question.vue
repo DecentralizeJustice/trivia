@@ -12,6 +12,7 @@
     v-bind:privateId='privateId'
     v-bind:type='type'
     v-bind:old='old'
+    v-bind:pastGameInfo='pastGameInfo'
     v-on:eliminated='eliminated = true'/>
     <v-divider/>
     <v-card-actions>
@@ -56,7 +57,7 @@ import outro from '@/components/gameShow/outro.vue'
 import humanVerif from '@/components/gameShow/humanVerification.vue'
 export default {
   name: 'question',
-  props: ['genInfo', 'mediaInfo', 'encrypted', 'questions', 'userIdInfo', 'privateId', 'type', 'old'],
+  props: ['genInfo', 'mediaInfo', 'encrypted', 'questions', 'userIdInfo', 'privateId', 'type', 'old', 'pastGameInfo'],
   components: {
     intro,
     preGame,

@@ -36,6 +36,7 @@
     v-bind:privateId='privateId'
     v-bind:genInfo='genGameInfo'
     v-on:exit="exitGame"
+    v-bind:pastGameInfo='pastGameInfo'
     style='overflow:hidden;'/>
     </v-dialog>
   </div>
@@ -47,6 +48,7 @@ import question from '@/components/gameShow/question.vue'
 import gameInformation from '@/assets/gameShow/gameInfo.js'
 import mediaInfoJson from '@/assets/gameShow/mediaInfo.json'
 import encryptedQuestions from '@/assets/gameShow/encryptedQuestions.json'
+import pastGameInfo from '@/assets/pastGame.js'
 import { secretbox, randomBytes } from 'tweetnacl'
 import {
   encodeBase64
@@ -73,6 +75,9 @@ export default {
     genGameInfo: gameInformation.default
   }),
   computed: {
+    pastGameInfo: function () {
+      return JSON.parse(pastGameInfo)
+    },
     ...mapState('gameInfo', [
       'gameInfo', 'privateId'
     ]),
