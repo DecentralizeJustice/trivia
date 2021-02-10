@@ -31,7 +31,7 @@ import vid from '@/components/gameShow/encryptedVideoPlayer.vue'
 import { get } from '@/assets/util/axios.js'
 export default {
   name: 'intro',
-  props: ['genInfo', 'currentTime', 'audioMuted', 'mediaInfo', 'encrypted'],
+  props: ['genInfo', 'currentTime', 'audioMuted', 'mediaInfo', 'encrypted', 'old', 'pastGameInfo'],
   components: {
     vid
   },
@@ -73,18 +73,22 @@ export default {
   },
   methods: {
     getPassword: async function () {
-      const url = this.genInfo.getApi
-      const result = await get(url)
       function sleep (ms) {
         return new Promise(resolve => setTimeout(resolve, ms))
       }
-      const waitTime = parseFloat(this.genInfo.waitTime) * 1000
-      if (result.data.info.intro.password === undefined) {
-        console.log('waiting')
-        await sleep(waitTime)
-        this.getPassword()
+      if (!this.old) {
+        const url = this.genInfo.getApi
+        const result = await get(url)
+        const waitTime = parseFloat(this.genInfo.waitTime) * 1000
+        if (result.data.info.intro.password === undefined) {
+          console.log('waiting')
+          await sleep(waitTime)
+          this.getPassword()
+        }
+        this.passwordInfo = result.data.info
+      } else {
+        this.passwordInfo = this.pastGameInfo
       }
-      this.passwordInfo = result.data.info
     }
   },
   watch: {
