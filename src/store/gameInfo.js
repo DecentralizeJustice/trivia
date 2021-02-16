@@ -2,26 +2,22 @@ export const gameInfo = {
   namespaced: true,
   state: {
     gameInfo: {
-      adjective: '',
-      emoji: '',
-      moneroAddress: '',
-      btcAddress: ''
+      addressType: '',
+      displayName: '',
+      address: ''
     },
     privateId: ''
   },
   mutations: {
     updateInfo (state, info) {
-      if (info.adjective) {
-        state.gameInfo.adjective = info.adjective
-      }
-      if (info.emoji) {
-        state.gameInfo.emoji = info.emoji
+      if (info.displayName) {
+        state.gameInfo.displayName = info.displayName
       }
       if (info.address) {
-        state.gameInfo.moneroAddress = info.moneroAddress
+        state.gameInfo.address = info.address
       }
-      if (info.address) {
-        state.gameInfo.btcAddress = info.btcAddress
+      if (info.addressType) {
+        state.gameInfo.addressType = info.addressType
       }
     },
     updatePrivateId (state, privateId) {

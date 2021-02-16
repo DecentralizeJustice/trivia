@@ -19,7 +19,7 @@
           <v-col  cols='12'>
           <v-card-text style="">
             <div class="" style="font-size: large;">
-              Winning Pot Amount: {{amountUSD}} USD
+              Winning Pot Amount: {{genInfo.amountUSD}} USD
               <v-row no-gutters justify-content='center' >
                <v-col cols='2' offset='5' class="justify-center text-center">
                  <v-icon x-large color="blue lighten-1">
@@ -29,7 +29,7 @@
              </v-row>
             </div>
             <div class="" style="font-size: large;">
-              Donation Amount: {{donateUSD}} USD
+              Donation Amount: {{genInfo.donatationAmountUSD}} USD
               <v-row no-gutters justify-content='center' >
                <v-col cols='2' offset='5' class="justify-center text-center">
                  <v-icon x-large color="blue lighten-1">
@@ -59,21 +59,11 @@
              </v-row>
             </div>
             <div class="mt-2" style="font-size: large;">
-              Trivia Subject: {{subject}}
+              Trivia Subject: {{genInfo.subject}}
               <v-row no-gutters justify-content='center' >
                <v-col cols='2' offset='5' class="justify-center text-center">
                  <v-icon x-large color="blue lighten-1">
                    mdi-library-books
-                 </v-icon>
-               </v-col>
-             </v-row>
-            </div>
-            <div class="mt-2" style="font-size: large;">
-              Payment Crypto: {{crypto}}
-              <v-row no-gutters justify-content='center' >
-               <v-col cols='2' offset='5' class="justify-center text-center">
-                 <v-icon x-large color="blue lighten-1">
-                  mdi-account-cash
                  </v-icon>
                </v-col>
              </v-row>
@@ -103,13 +93,28 @@
           </v-card-title>
           <v-divider/>
           <v-col  cols='12'>
-              <v-row justify="space-around" align="center">
+              <v-row justify="space-around">
+                <v-col cols='4'>
+                  <div class="text-center text-h6" >
+                    Your Winnings Crypto:
+                  <v-select
+                    :items="coinChoices"
+                    v-model="selectedCoin"
+                    solo
+                    @change='updateAddressType'
+                    class="mt-2"
+                  ></v-select>
+                    <v-img
+                      :src="coinImg"
+                    ></v-img>
+                  </div>
+                </v-col>
                 <v-col cols='5'>
               <div class="text-center text-h6" >
-                {{addressText}} Address:
+                Your {{selectedCoin}} Address:
                 <div v-if='!settingAddress' class="text-left mt-1 text-body-1"
                 >
-                  {{displayAddress}}
+                  {{userIdInfo.address}}
                 </div>
                 <v-row v-if='settingAddress'>
                   <v-col
@@ -117,7 +122,7 @@
                   >
                     <v-textarea
                       v-model="addressValue"
-                      label="Bitcoin Address"
+                      label="Payment Address"
                       color="black"
                       auto-grow
                     ></v-textarea>
@@ -129,7 +134,7 @@
                   class="mt-3"
                 >
                   <v-btn
-                  v-if='!settingAddress && addressReady'
+                  v-if='!settingAddress && !addressReady'
                   @click='setAddress'
                     color="warning"
                     class="ma-2"
@@ -137,7 +142,7 @@
                     Set Address
                   </v-btn>
                   <v-btn
-                  v-if='!settingAddress && !addressReady'
+                  v-if='!settingAddress && addressReady'
                   @click='setAddress'
                     color="red"
                     class="ma-2"
@@ -157,22 +162,48 @@
             </v-col>
             <v-col cols='6' class="text-center text-h6">
               Display Name:
-              <div class="text-center mt-3 text-h5">
-                {{userIdInfo.adjective}}
+              <div class="text-center mt-3 text-h5" v-if='!settingDisplayName'>
+                {{userIdInfo.displayName}}
               </div>
-              <div class="text-center mt-3 text-h2">
-                {{userIdInfo.emoji}}
-              </div>
+              <v-row v-if='settingDisplayName'>
+                <v-col
+                  cols="12"
+                >
+                  <v-textarea
+                    v-model="displayNameValue"
+                    label="Display Name"
+                    color="black"
+                    auto-grow
+                  ></v-textarea>
+                </v-col>
+              </v-row>
               <v-row
                 align="center"
                 justify="center"
+                class="mt-3"
               >
                 <v-btn
-                @click='generateNewname'
-                  color="primary"
-                  class="mt-4"
+                v-if='!settingDisplayName && !displayNameReady'
+                @click='setDisplayName'
+                  color="warning"
+                  class="ma-2"
                 >
-                  Generate New Name
+                  Set Display Name
+                </v-btn>
+                <v-btn
+                v-if='!settingDisplayName && displayNameReady'
+                @click='setDisplayName'
+                  color="red"
+                  class="ma-2"
+                >
+                  Edit Display Name
+                </v-btn>
+                <v-btn
+                v-if='settingDisplayName'
+                @click='confirmDisplayName(displayNameValue)'
+                  color="green"
+                >
+                  Confirm Display Name
                 </v-btn>
               </v-row>
             </v-col>
@@ -189,12 +220,14 @@
                  </v-col>
                  <v-col cols='12'  class="" v-if='!allInfoSet'>
                    <v-alert
+                      v-if='!addressReady'
                       dense
                       border="left"
                       type="warning"
                       class="text-center"
                     >
-                      <div class="text-center text-h6">You need to set your address!</div>
+                      <div class="text-center text-h6" >
+                        You need to set your address!</div>
                       <!-- <v-btn
                       @click='goToRoute'
                         color="primary"
@@ -203,7 +236,16 @@
                         How To Get Monero Address
                       </v-btn> -->
                     </v-alert>
-                   <!-- <v-progress-linear color='green' :value="progress"></v-progress-linear> -->
+                    <v-alert
+                        v-if='addressReady && !displayNameReady'
+                       dense
+                       border="left"
+                       type="warning"
+                       class="text-center"
+                     >
+                       <div class="text-center text-h6" >
+                         You need to set your Display Name!</div>
+                     </v-alert>
                  </v-col>
                </v-row>
           </v-col>
@@ -304,20 +346,34 @@
 
 <script>
 import { get } from '@/assets/util/axios.js'
-import adjectiveList from '@/assets/gameShow/adjective.json'
-import emojiObject from '@/assets/gameShow/emoji.json'
+import btcImg from '@/assets/cryptoCoins/btc.png'
+import moneroImg from '@/assets/cryptoCoins/monero.png'
+import ethImg from '@/assets/cryptoCoins/ethereum.png'
 export default {
   name: 'home',
-  props: ['userIdInfo', 'dev', 'genInfo', 'type', 'old'],
+  props: ['userIdInfo', 'dev', 'genInfo', 'old'],
   components: {
   },
   data: () => ({
     difference: 3000000,
+    selectedCoin: '',
+    coinChoices: ['Bitcoin', 'Monero', 'Ethereum'],
     settingAddress: false,
     addressValue: '',
+    settingDisplayName: false,
+    displayNameValue: '',
     oneHour: (3600 * 1000)
   }),
   computed: {
+    coinImg: function () {
+      if (this.selectedCoin === 'Monero') {
+        return moneroImg
+      }
+      if (this.selectedCoin === 'Ethereum') {
+        return ethImg
+      }
+      return btcImg
+    },
     startButtonText: function () {
       if (this.old) {
         return 'Play Last Trivia Show'
@@ -325,29 +381,11 @@ export default {
         return 'Start Show'
       }
     },
-    addressText: function () {
-      if (this.genInfo.crypto === 'Bitcoin (BTC)') {
-        return 'Bitcoin'
-      }
-      return 'NaN'
-    },
     addressReady: function () {
-      return this.addressValue.length === 0
+      return this.addressValue.length !== 0
     },
-    subject: function () {
-      return this.genInfo.subject
-    },
-    amountUSD: function () {
-      return this.genInfo.amountUSD
-    },
-    donateUSD: function () {
-      return this.genInfo.donatationAmountUSD
-    },
-    maxWinUSD: function () {
-      return this.genInfo.maxAmountWin
-    },
-    crypto: function () {
-      return this.genInfo.crypto
+    displayNameReady: function () {
+      return this.displayNameValue.length !== 0
     },
     introLength: function () {
       return parseInt(this.genInfo.intro.length) * 1000
@@ -370,16 +408,9 @@ export default {
     startTime: function () {
       return parseInt(this.genInfo.startEpochTime) * 1000
     },
-    displayAddress: function () {
-      if (this.userIdInfo[this.type] === '') {
-        return 'None Yet'
-      } else {
-        return this.userIdInfo[this.type]
-      }
-    },
     allInfoSet: function () {
       const infoReady =
-      (this.userIdInfo.adjective !== '' && this.userIdInfo.emoji !== '' && this.userIdInfo[this.type] !== '')
+      (this.userIdInfo.displayName !== '' && this.userIdInfo.address !== '')
       if (infoReady) {
         return true
       }
@@ -427,16 +458,26 @@ export default {
     }
   },
   methods: {
-    showInfo () {
-      this.$emit('showRules')
+    updateAddressType (capCoin) {
+      const chosenCoin = capCoin.toLowerCase()
+      this.$emit('updateAddressType', chosenCoin)
     },
     setAddress () {
       this.settingAddress = true
     },
+    setDisplayName () {
+      this.settingDisplayName = true
+    },
     confirmAddress (address) {
       this.settingAddress = false
       const cleanAddress = address.replace(/\s+/g, '')
+      this.addressValue = address
       this.$emit('updateAddress', cleanAddress)
+    },
+    confirmDisplayName (displayName) {
+      this.settingDisplayName = false
+      this.displayNameValue = displayName
+      this.$emit('updateDisplayName', displayName)
     },
     start () {
       this.$emit('readyToStart')
@@ -456,20 +497,6 @@ export default {
         }, 1000)
       }
     },
-    getRandomIntInclusive: function (min, max) {
-      min = Math.ceil(min)
-      max = Math.floor(max)
-      return Math.floor(Math.random() * (max - min + 1) + min)
-    },
-    generateNewname: function () {
-      const adjlistLength = adjectiveList.length
-      const adjective = adjectiveList[this.getRandomIntInclusive(0, adjlistLength - 1)]
-      const adjectiveCap = adjective.charAt(0).toUpperCase() + adjective.slice(1)
-      const emojiList = Object.values(emojiObject)
-      const emojiListLength = emojiList.length
-      const emoji = emojiList[this.getRandomIntInclusive(0, emojiListLength - 1)]
-      this.$emit('updateUserIDInfo', { adjective: adjectiveCap, emoji })
-    },
     testSpeed: async function () {
       const sendTime = Date.now()
       const url = this.genInfo.getApi
@@ -481,11 +508,15 @@ export default {
   watch: {
   },
   async mounted () {
-    this.addressValue = this.userIdInfo[this.type]
-    if (this.userIdInfo.adjective === '' || this.userIdInfo.adjective.emoji === '') {
-      this.generateNewname()
+    this.addressValue = this.userIdInfo.address
+    this.displayNameValue = this.userIdInfo.displayName
+    if (this.userIdInfo.addressType === '') {
+      const randNum = Math.floor(Math.random() * Math.floor(this.coinChoices.length))
+      this.selectedCoin = this.coinChoices[randNum]
+      this.updateAddressType(this.coinChoices[randNum])
+    } else {
+      this.selectedCoin = this.userIdInfo.addressType.charAt(0).toUpperCase() + this.userIdInfo.addressType.slice(1)
     }
-    // this.testSpeed()
     this.countDownTimer()
   }
 }
