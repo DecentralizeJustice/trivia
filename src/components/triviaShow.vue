@@ -9,10 +9,10 @@
     @readyToStart='readyToStart()'
     @showRules='showRulesFunc()'
     v-on:updateAddress='updateAddress'
-    v-on:updateUserIDInfo='updateUserIDInfo'
+    v-on:updateDisplayName='updateDisplayName'
+    v-on:updateAddressType='updateAddressType'
     v-bind:genInfo='genGameInfo'
     v-bind:privateId='privateId'
-    v-bind:type='type'
     />
       </v-row>
     <v-dialog
@@ -25,7 +25,6 @@
     >
 
     <question
-    v-bind:type='type'
     v-bind:old='old'
     v-bind:userIdInfo='gameInfo'
     v-if='dialog && showGame'
@@ -81,13 +80,6 @@ export default {
     ...mapState('gameInfo', [
       'gameInfo', 'privateId'
     ]),
-    type: function () {
-      if (this.genGameInfo.crypto === 'Bitcoin (BTC)') {
-        return 'btcAddress'
-      }
-      // should not be hit
-      return 'btcAddress'
-    },
     fileLink: function () {
       return this.genGameInfo.fileLink
     }
@@ -175,11 +167,13 @@ export default {
       this.dialog = true
     },
     updateAddress: function (address) {
-      this.gameInfo[this.type] = address
-      this.updateInfo({ type: address })
+      this.updateInfo({ address: address })
     },
-    updateUserIDInfo: function (infoObject) {
-      this.updateInfo({ emoji: infoObject.emoji, adjective: infoObject.adjective })
+    updateDisplayName: function (displayName) {
+      this.updateInfo({ displayName: displayName })
+    },
+    updateAddressType: function (addressType) {
+      this.updateInfo({ addressType: addressType })
     },
     handlePrivateId: function () {
       if (this.privateId === '') {
