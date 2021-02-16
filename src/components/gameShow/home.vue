@@ -122,8 +122,8 @@
                   >
                     <v-textarea
                       v-model="addressValue"
-                      label="Payment Address"
                       color="black"
+                      background-color="black"
                       auto-grow
                     ></v-textarea>
                   </v-col>
@@ -171,8 +171,8 @@
                 >
                   <v-textarea
                     v-model="displayNameValue"
-                    label="Display Name"
                     color="black"
+                    background-color='black'
                     auto-grow
                   ></v-textarea>
                 </v-col>

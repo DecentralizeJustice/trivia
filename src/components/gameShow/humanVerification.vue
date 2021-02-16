@@ -183,6 +183,7 @@ export default {
     },
     getPassword: async function () {
       const url = this.genInfo.getApi
+      console.log('ran')
       const result = await get(url)
       function sleep (ms) {
         return new Promise(resolve => setTimeout(resolve, ms))
