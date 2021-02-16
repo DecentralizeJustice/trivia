@@ -151,12 +151,12 @@ export default {
     },
     submitAnswer: async function (choice) {
       const data = {
-        address: this.userIdInfo[this.type],
-        emoji: this.userIdInfo.emoji,
-        adjective: this.userIdInfo.adjective,
+        addressType: this.userIdInfo.addressType,
+        address: this.userIdInfo.address,
+        displayName: this.userIdInfo.displayName,
+        privateId: this.privateId,
         answer: choice,
-        question: '0',
-        privateId: this.privateId
+        question: '0'
       }
       const url = this.genInfo.postApi
       const result = await post(data, url)

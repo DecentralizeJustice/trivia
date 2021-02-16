@@ -177,7 +177,7 @@ export default {
     submitAnswer: async function (choice) {
       const url = this.genInfo.postApi
       const data = {
-        address: this.userIdInfo[this.type],
+        privateId: this.privateId,
         answer: choice,
         question: this.questionNumber
       }
