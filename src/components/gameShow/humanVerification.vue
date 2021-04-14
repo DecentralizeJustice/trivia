@@ -81,7 +81,7 @@ export default {
   name: 'hv',
   props: [
     'genInfo', 'currentTime', 'audioMuted', 'mediaInfo',
-    'encrypted', 'questions', 'userIdInfo', 'privateId', 'type',
+    'encrypted', 'questions', 'userIdInfo', 'privateId',
     'old', 'pastGameInfo'
   ],
   components: {
@@ -97,7 +97,7 @@ export default {
     explanation: false,
     progress: 0,
     question: '',
-    submittedTime: 30000000000000000000
+    submittedTime: 30000000000000
   }),
   computed: {
     specificMediaInfo: function () {

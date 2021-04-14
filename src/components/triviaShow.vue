@@ -31,7 +31,6 @@
     v-bind:questions='questions'
     v-bind:encrypted='true'
     v-bind:mediaInfo='mediaInfo'
-    v-bind:dev='dev'
     v-bind:privateId='privateId'
     v-bind:genInfo='genGameInfo'
     v-on:exit="exitGame"
