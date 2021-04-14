@@ -1,5 +1,5 @@
 const info = {
-  subject: 'History of Money',
+  subject: 'Monero History',
   startEpochTime: '1613785401',
   nextShow: '1613785405',
   donatationAmountUSD: '100',

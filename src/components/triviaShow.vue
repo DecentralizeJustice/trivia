@@ -64,7 +64,6 @@ export default {
   data: () => ({
     dev: true,
     old: true,
-    oldStarTime: 2,
     showGame: false,
     questions: {},
     mediaInfo: {},
@@ -151,7 +150,7 @@ export default {
     setOldGame: function functionName () {
       const target = {}
       Object.assign(target, gameInformation.default)
-      target.startEpochTime = Math.round(Date.now() / 1000)
+      target.startEpochTime = Math.round(Date.now() / 1000) + 120
       target.postApi = ''
       this.genGameInfo = target
     },

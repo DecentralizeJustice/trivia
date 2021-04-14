@@ -28,7 +28,7 @@
                </v-col>
              </v-row>
             </div>
-            <div class="" style="font-size: large;">
+            <!-- <div class="" style="font-size: large;">
               Donation Amount: {{genInfo.donatationAmountUSD}} USD
               <v-row no-gutters justify-content='center' >
                <v-col cols='2' offset='5' class="justify-center text-center">
@@ -37,7 +37,7 @@
                  </v-icon>
                </v-col>
              </v-row>
-            </div>
+            </div> -->
             <!-- <div class="" style="font-size: large;">
               Max Win Amount: {{maxWinUSD}} USD
               <v-row no-gutters justify-content='center' >
@@ -48,7 +48,7 @@
                </v-col>
              </v-row>
             </div> -->
-            <div class="mt-2" style="font-size: large;">
+            <div class="mt-2" style="font-size: large;" v-if='!hideTimer'>
               Next Gameshow: {{regularTime}}
               <v-row no-gutters justify-content='center' >
                <v-col cols='2' offset='5' class="justify-center text-center">
@@ -58,6 +58,7 @@
                </v-col>
              </v-row>
             </div>
+
             <div class="mt-2" style="font-size: large;">
               Trivia Subject: {{genInfo.subject}}
               <v-row no-gutters justify-content='center' >
@@ -252,7 +253,7 @@
         </v-card>
         </v-col>
       </v-row>
-      <v-row no-gutters align-content='center' class="text-center" v-if='!ready || old' align="center"
+      <v-row no-gutters align-content='center' class="text-center" v-if='!ready || !hideTimer' align="center"
         justify="space-around" >
         <v-col
           cols="5"
@@ -362,7 +363,8 @@ export default {
     addressValue: '',
     settingDisplayName: false,
     displayNameValue: '',
-    oneHour: (3600 * 1000)
+    oneHour: (3600 * 1000),
+    hideTimer: false
   }),
   computed: {
     coinImg: function () {
@@ -485,11 +487,12 @@ export default {
     countDownTimer () {
       const current = Date.now()
       if (current > this.startTime + this.oneHour) {
-        setTimeout(() => {
-          const next = this.genInfo.default.nextShow * 1000
-          this.difference = next - current
-          this.countDownTimer()
-        }, 1000)
+        this.hideTimer = true
+        // setTimeout(() => {
+        //   const next = this.genInfo.default.nextShow * 1000
+        //   this.difference = next - current
+        //   this.countDownTimer()
+        // }, 1000)
       } else {
         setTimeout(() => {
           this.difference = this.startTime - current
