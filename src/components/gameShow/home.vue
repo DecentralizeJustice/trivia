@@ -456,7 +456,7 @@ export default {
       if (minutes < 10) {
         minutes = '0' + minutes
       }
-      return hour + ':' + minutes + ' ' + ampm + ' ' + day + ', ' + month
+      return hour + ':' + minutes + ' ' + ampm + ' ' + month + ' ' + day
     }
   },
   methods: {

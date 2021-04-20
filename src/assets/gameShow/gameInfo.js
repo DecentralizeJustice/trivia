@@ -1,6 +1,6 @@
 const info = {
-  subject: 'Monero History',
-  startEpochTime: '1613785401',
+  subject: 'Monero Cool Facts',
+  startEpochTime: '1620349200',
   nextShow: '1613785405',
   donatationAmountUSD: '100',
   crypto: 'Bitcoin (BTC)',
@@ -9,7 +9,7 @@ const info = {
   numberOfQuestions: '10',
   timeToAnswerGenQuestion: '12',
   explantionTime: '60',
-  waitTime: '0.5',
+  waitTime: '0.5', // time to wait between getting info from server time
   humanVerificationTime: '90',
   humanVerificationTimeToAnswer: '45',
   getApi: 'https://help-935e0cci.uc.gateway.dev/',
