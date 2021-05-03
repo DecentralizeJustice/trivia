@@ -3,7 +3,6 @@
     <v-row no-gutters align-content='center' justify='center'>
     <home
     v-if='!dialog'
-    v-bind:old='old'
     v-bind:userIdInfo='gameInfo'
     v-bind:dev='dev'
     @readyToStart='readyToStart()'
@@ -63,7 +62,7 @@ export default {
   },
   data: () => ({
     dev: true,
-    old: true,
+    devOffsetSeconds: -90,
     showGame: false,
     questions: {},
     mediaInfo: {},
@@ -80,6 +79,13 @@ export default {
     ]),
     fileLink: function () {
       return this.genGameInfo.fileLink
+    },
+    old: function () {
+      if (this.dev) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   methods: {
@@ -150,15 +156,15 @@ export default {
     setOldGame: function functionName () {
       const target = {}
       Object.assign(target, gameInformation.default)
-      target.startEpochTime = Math.round(Date.now() / 1000) + 120
-      target.postApi = ''
+      target.startEpochTime = Math.round(Date.now() / 1000) + this.devOffsetSeconds
+      // target.postApi = ''
       this.genGameInfo = target
     },
     unsetOldGame: function functionName () {
       this.genGameInfo = gameInformation.default
     },
     readyToStart: function () {
-      if (this.old) {
+      if (this.dev) {
         this.setOldGame()
       }
       this.showGame = true

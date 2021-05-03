@@ -66,8 +66,8 @@ export default {
   },
   data: () => ({
     slides:
-    ['https://res.cloudinary.com/dylevfpbl/image/upload/v1611440241/gameshow/pregame/slide1.jpg',
-      'https://res.cloudinary.com/dylevfpbl/image/upload/v1611440242/gameshow/pregame/slide2.jpg'
+    ['https://res.cloudinary.com/dylevfpbl/image/upload/v1619931598/gameshow2/pregame/slide1.jpg',
+      'https://res.cloudinary.com/dylevfpbl/image/upload/v1619931598/gameshow2/pregame/slide2.jpg'
     ]
   }),
   computed: {

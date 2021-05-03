@@ -352,7 +352,7 @@ import moneroImg from '@/assets/cryptoCoins/monero.png'
 import ethImg from '@/assets/cryptoCoins/ethereum.png'
 export default {
   name: 'home',
-  props: ['userIdInfo', 'dev', 'genInfo', 'old'],
+  props: ['userIdInfo', 'dev', 'genInfo'],
   components: {
   },
   data: () => ({
@@ -377,7 +377,7 @@ export default {
       return btcImg
     },
     startButtonText: function () {
-      if (this.old) {
+      if (this.dev) {
         return 'Play Last Trivia Show'
       } else {
         return 'Start Show'

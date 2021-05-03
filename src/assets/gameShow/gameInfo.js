@@ -8,18 +8,18 @@ const info = {
   maxAmountWin: '30',
   numberOfQuestions: '10',
   timeToAnswerGenQuestion: '12',
-  explantionTime: '60',
+  explantionTime: '90',
   waitTime: '0.5', // time to wait between getting info from server time
   humanVerificationTime: '90',
   humanVerificationTimeToAnswer: '45',
   getApi: 'https://help-935e0cci.uc.gateway.dev/',
-  postApi: 'https://postanswer-935e0cci.uc.gateway.dev/',
-  fileLink: 'https://res.cloudinary.com/dylevfpbl/raw/upload/v1611441769/gameshow/output/',
+  postApi: 'https://post-api-935e0cci.ue.gateway.dev/',
+  fileLink: 'https://res.cloudinary.com/dylevfpbl/raw/upload/v1619984191/gameshow2/output/',
   intro: {
-    length: '215'
+    length: '98'
   },
   outro: {
-    length: '85'
+    length: '50'
   }
 }
 exports.default = info

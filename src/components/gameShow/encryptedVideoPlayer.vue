@@ -73,7 +73,6 @@ export default {
         secretbox.nonceLength,
         messageWithNonce.length
       )
-
       const decrypted = secretbox.open(message, nonce, keyUint8Array)
 
       if (!decrypted) {
