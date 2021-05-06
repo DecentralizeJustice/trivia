@@ -48,7 +48,7 @@
                </v-col>
              </v-row>
             </div> -->
-            <div class="mt-2" style="font-size: large;" v-if='!hideTimer'>
+            <div class="mt-2" style="font-size: large;">
               Next Gameshow: {{regularTime}}
               <v-row no-gutters justify-content='center' >
                <v-col cols='2' offset='5' class="justify-center text-center">
@@ -97,7 +97,7 @@
               <v-row justify="space-around">
                 <v-col cols='4'>
                   <div class="text-center text-h6" >
-                    Your Winnings Crypto:
+                    Address Type:
                   <v-select
                     :items="coinChoices"
                     v-model="selectedCoin"
@@ -253,7 +253,7 @@
         </v-card>
         </v-col>
       </v-row>
-      <v-row no-gutters align-content='center' class="text-center" v-if='!ready || !hideTimer' align="center"
+      <v-row no-gutters align-content='center' class="text-center" v-if='!ready || hideTimer' align="center"
         justify="space-around" >
         <v-col
           cols="5"

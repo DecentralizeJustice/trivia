@@ -44,7 +44,6 @@ import home from '@/components/gameShow/home.vue'
 import question from '@/components/gameShow/question.vue'
 import gameInformation from '@/assets/gameShow/gameInfo.js'
 import mediaInfoJson from '@/assets/gameShow/mediaInfo.json'
-import encryptedQuestions from '@/assets/gameShow/encryptedQuestions.json'
 import pastGameInfo from '@/assets/pastGame.js'
 import { secretbox, randomBytes } from 'tweetnacl'
 import {
@@ -61,8 +60,8 @@ export default {
     question
   },
   data: () => ({
-    dev: true,
-    devOffsetSeconds: -90,
+    dev: false,
+    devOffsetSeconds: 0,
     showGame: false,
     questions: {},
     mediaInfo: {},
@@ -93,8 +92,11 @@ export default {
       ['updateInfo', 'updatePrivateId']
     ),
     setQuestions: async function () {
-      const info = encryptedQuestions
-      this.questions = info.questions
+      const response = await axios({
+        url: this.fileLink + 'encryptedQuestions.json',
+        method: 'GET'
+      })
+      this.questions = response.data.questions
     },
     creatBlobLink: async function (file) {
       const response = await axios({
@@ -157,7 +159,7 @@ export default {
       const target = {}
       Object.assign(target, gameInformation.default)
       target.startEpochTime = Math.round(Date.now() / 1000) + this.devOffsetSeconds
-      // target.postApi = ''
+      target.postApi = ''
       this.genGameInfo = target
     },
     unsetOldGame: function functionName () {

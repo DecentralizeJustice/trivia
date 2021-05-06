@@ -178,10 +178,11 @@ export default {
     submitAnswer: async function (choice) {
       const url = this.genInfo.postApi
       const data = {
-        privateId: this.privateId,
+        address: this.userIdInfo.address,
         answer: choice,
         question: this.questionNumber
       }
+      console.log(data)
       const result = await post(data, url)
       this.submittedTime = parseInt(result.data.time)
     },
