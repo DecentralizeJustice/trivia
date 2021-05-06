@@ -218,7 +218,7 @@ export default {
       this.passwordInfo = result.data.info
       const info = result.data.info
       const waitTime = parseFloat(this.genInfo.waitTime) * 1000
-      const correctQuestionReady = !(info[this.questionNumber].question === undefined)
+      const correctQuestionReady = info !== undefined && info[this.questionNumber] !== undefined && info[this.questionNumber].question !== undefined
       if (correctQuestionReady) {
         const answerNeeded = this.explanation
         if (!answerNeeded) {

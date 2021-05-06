@@ -81,7 +81,13 @@ export default {
         const url = this.genInfo.getApi
         const result = await get(url)
         const waitTime = parseFloat(this.genInfo.waitTime) * 1000
-        if (result.data.info.intro.password === undefined) {
+        const info = result.data.info
+        const correctInfoReady = info !== undefined && info.intro !== undefined && info.intro.password !== undefined
+        if (!correctInfoReady) {
+          console.log(correctInfoReady)
+          console.log(info)
+          console.log(info.intro)
+          console.log(info.intro.password)
           console.log('waiting')
           await sleep(waitTime)
           this.getPassword()
