@@ -178,10 +178,11 @@ export default {
     submitAnswer: async function (choice) {
       const url = this.genInfo.postApi
       const data = {
-        privateId: this.privateId,
+        address: this.userIdInfo.address,
         answer: choice,
         question: this.questionNumber
       }
+      console.log(data)
       const result = await post(data, url)
       this.submittedTime = parseInt(result.data.time)
     },
@@ -217,7 +218,7 @@ export default {
       this.passwordInfo = result.data.info
       const info = result.data.info
       const waitTime = parseFloat(this.genInfo.waitTime) * 1000
-      const correctQuestionReady = !(info[this.questionNumber].question === undefined)
+      const correctQuestionReady = info !== undefined && info[this.questionNumber] !== undefined && info[this.questionNumber].question !== undefined
       if (correctQuestionReady) {
         const answerNeeded = this.explanation
         if (!answerNeeded) {

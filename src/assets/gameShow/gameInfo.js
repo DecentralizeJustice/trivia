@@ -1,7 +1,7 @@
 const info = {
   subject: 'Monero Cool Facts',
   startEpochTime: '1620349200',
-  nextShow: '1613785405',
+  nextShow: '1713785405',
   donatationAmountUSD: '100',
   crypto: 'Bitcoin (BTC)',
   amountUSD: '100',
@@ -10,9 +10,9 @@ const info = {
   timeToAnswerGenQuestion: '12',
   explantionTime: '90',
   waitTime: '0.5', // time to wait between getting info from server time
-  humanVerificationTime: '90',
+  humanVerificationTime: '92',
   humanVerificationTimeToAnswer: '45',
-  getApi: 'https://help-935e0cci.uc.gateway.dev/',
+  getApi: 'https://getgameinfo-935e0cci.ue.gateway.dev/',
   postApi: 'https://post-api-935e0cci.ue.gateway.dev/',
   fileLink: 'https://res.cloudinary.com/dylevfpbl/raw/upload/v1619984191/gameshow2/output/',
   intro: {
