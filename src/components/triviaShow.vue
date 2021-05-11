@@ -60,8 +60,8 @@ export default {
     question
   },
   data: () => ({
-    dev: false,
-    devOffsetSeconds: 0,
+    dev: true,
+    devOffsetSeconds: 120,
     showGame: false,
     questions: {},
     mediaInfo: {},

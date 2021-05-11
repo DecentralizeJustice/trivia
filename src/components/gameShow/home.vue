@@ -253,7 +253,7 @@
         </v-card>
         </v-col>
       </v-row>
-      <v-row no-gutters align-content='center' class="text-center" v-if='!ready || hideTimer' align="center"
+      <v-row no-gutters align-content='center' class="text-center" v-if='!ready || !hideTimer' align="center"
         justify="space-around" >
         <v-col
           cols="5"
@@ -486,6 +486,7 @@ export default {
     },
     countDownTimer () {
       const current = Date.now()
+      this.hideTimer = true
       if (current > this.startTime + this.oneHour) {
         this.hideTimer = true
         // setTimeout(() => {
