@@ -1,6 +1,6 @@
 const info = {
-  subject: 'Monero Cool Facts',
-  startEpochTime: '1620349200',
+  subject: 'Paper Wallet History',
+  startEpochTime: '1627430400',
   nextShow: '1713785405',
   donatationAmountUSD: '100',
   crypto: 'Bitcoin (BTC)',
