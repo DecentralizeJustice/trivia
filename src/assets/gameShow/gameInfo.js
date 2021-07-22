@@ -1,6 +1,6 @@
 const info = {
   subject: 'Paper Wallet History',
-  startEpochTime: '1627430400',
+  startEpochTime: '1627603200',
   nextShow: '1713785405',
   donatationAmountUSD: '100',
   crypto: 'Bitcoin (BTC)',
