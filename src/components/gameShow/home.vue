@@ -346,7 +346,6 @@
 </template>
 
 <script>
-import { get } from '@/assets/util/axios.js'
 import btcImg from '@/assets/cryptoCoins/btc.png'
 import moneroImg from '@/assets/cryptoCoins/monero.png'
 import ethImg from '@/assets/cryptoCoins/ethereum.png'
@@ -486,27 +485,15 @@ export default {
     },
     countDownTimer () {
       const current = Date.now()
-      this.hideTimer = true
-      if (current > this.startTime + this.oneHour) {
+      if (current > this.startTime) {
         this.hideTimer = true
-        // setTimeout(() => {
-        //   const next = this.genInfo.default.nextShow * 1000
-        //   this.difference = next - current
-        //   this.countDownTimer()
-        // }, 1000)
-      } else {
+      }
+      if (current < this.startTime + this.oneHour) {
         setTimeout(() => {
           this.difference = this.startTime - current
           this.countDownTimer()
         }, 1000)
       }
-    },
-    testSpeed: async function () {
-      const sendTime = Date.now()
-      const url = this.genInfo.getApi
-      const result = await get(url)
-      const serverTime = result.data.time
-      console.log('lag:', serverTime - sendTime, ' ms')
     }
   },
   watch: {
