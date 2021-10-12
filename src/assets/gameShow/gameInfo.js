@@ -1,11 +1,8 @@
 const info = {
   subject: 'Paper Wallet History',
-  startEpochTime: '1628812800',
+  startEpochTime: '1634605200', // seconds
   nextShow: '1713785405',
-  donatationAmountUSD: '100',
-  crypto: 'Bitcoin (BTC)',
-  amountUSD: '100',
-  maxAmountWin: '30',
+  amountUSD: '50',
   numberOfQuestions: '10',
   timeToAnswerGenQuestion: '12',
   explantionTime: '90',
