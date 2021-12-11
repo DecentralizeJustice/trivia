@@ -420,7 +420,6 @@ export default {
     tillShowTime: function () {
       const distance = this.difference
       if (this.difference < 0) {
-
       }
       const days = Math.floor(distance / (1000 * 60 * 60 * 24))
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))

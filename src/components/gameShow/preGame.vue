@@ -65,12 +65,14 @@ export default {
     audio1
   },
   data: () => ({
-    slides:
-    ['https://res.cloudinary.com/dylevfpbl/image/upload/v1619931598/gameshow2/pregame/slide1.jpg',
-      'https://res.cloudinary.com/dylevfpbl/image/upload/v1619931598/gameshow2/pregame/slide2.jpg'
-    ]
   }),
   computed: {
+    slides: function () {
+      const baseIMGlink = this.genInfo.fileLink
+      const baseIMGlinkSlice = baseIMGlink.slice(0, -7)
+      const baseIMGlinkCorrect = baseIMGlinkSlice.replace(/raw/g, 'image')
+      return [baseIMGlinkCorrect + 'pregame/slide1.jpg', baseIMGlinkCorrect + 'pregame/slide2.jpg']
+    },
     currentSlide: function () {
       if (parseInt(this.tillShowTimeMinutes) < 1) {
         return this.slides[1]

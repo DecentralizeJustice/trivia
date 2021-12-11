@@ -60,7 +60,7 @@ export default {
     question
   },
   data: () => ({
-    dev: true,
+    dev: false,
     devOffsetSeconds: 120,
     showGame: false,
     questions: {},
