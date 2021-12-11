@@ -5,9 +5,9 @@ const info = {
   amountUSD: '50',
   numberOfQuestions: '10',
   timeToAnswerGenQuestion: '12',
-  explantionTime: '90',
+  explantionTime: '93',
   waitTime: '0.5', // time to wait between getting info from server time
-  humanVerificationTime: '92',
+  humanVerificationTime: '60',
   humanVerificationTimeToAnswer: '45',
   getApi: 'http://localhost:8086/', // 'https://getgameinfo-935e0cci.ue.gateway.dev/',
   postApi: 'https://post-api-935e0cci.ue.gateway.dev/',
