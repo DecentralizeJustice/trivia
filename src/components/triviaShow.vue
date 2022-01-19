@@ -4,7 +4,7 @@
     <home
     v-if='!dialog'
     v-bind:userIdInfo='gameInfo'
-    v-bind:dev='dev'
+    v-bind:oldGame='oldGame'
     @readyToStart='readyToStart()'
     @showRules='showRulesFunc()'
     v-on:updateAddress='updateAddress'
@@ -60,8 +60,8 @@ export default {
     question
   },
   data: () => ({
-    dev: false,
-    devOffsetSeconds: 120,
+    oldGame: false,
+    oldGameOffsetSeconds: 120,
     showGame: false,
     questions: {},
     mediaInfo: {},
@@ -80,7 +80,7 @@ export default {
       return this.genGameInfo.fileLink
     },
     old: function () {
-      if (this.dev) {
+      if (this.oldGame) {
         return true
       } else {
         return false
@@ -158,7 +158,7 @@ export default {
     setOldGame: function functionName () {
       const target = {}
       Object.assign(target, gameInformation.default)
-      target.startEpochTime = Math.round(Date.now() / 1000) + this.devOffsetSeconds
+      target.startEpochTime = Math.round(Date.now() / 1000) + this.oldGameOffsetSeconds
       target.postApi = ''
       this.genGameInfo = target
     },
@@ -166,7 +166,7 @@ export default {
       this.genGameInfo = gameInformation.default
     },
     readyToStart: function () {
-      if (this.dev) {
+      if (this.oldGame) {
         this.setOldGame()
       }
       this.showGame = true

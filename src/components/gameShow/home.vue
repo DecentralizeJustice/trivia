@@ -351,7 +351,7 @@ import moneroImg from '@/assets/cryptoCoins/monero.png'
 import ethImg from '@/assets/cryptoCoins/ethereum.png'
 export default {
   name: 'home',
-  props: ['userIdInfo', 'dev', 'genInfo'],
+  props: ['userIdInfo', 'oldGame', 'genInfo'],
   components: {
   },
   data: () => ({
@@ -376,7 +376,7 @@ export default {
       return btcImg
     },
     startButtonText: function () {
-      if (this.dev) {
+      if (this.oldGame) {
         return 'Play Last Trivia Show'
       } else {
         return 'Start Show'
@@ -433,7 +433,7 @@ export default {
       const pregameTime = 120000
       const timeReady = (this.difference - pregameTime < 0) && (Date.now() < this.startTime + this.oneHour)
       const infoReady = this.allInfoSet
-      if ((timeReady && infoReady) || this.dev) {
+      if ((timeReady && infoReady) || this.oldGame) {
         return true
       } else {
         return false

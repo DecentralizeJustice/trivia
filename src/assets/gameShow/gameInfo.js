@@ -1,6 +1,6 @@
 const info = {
   subject: 'Paper Wallet History',
-  startEpochTime: '1639112890', // seconds
+  startEpochTime: '1342611233', // seconds
   nextShow: '1713785405',
   amountUSD: '50',
   numberOfQuestions: '10',
